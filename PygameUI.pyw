@@ -139,12 +139,12 @@ class Button():
                         self.responsive = v == "True"
                     elif k == "nonresponsivecolor":
                         self.nonresponsivecolor = pygame.Color(v)
-            self.label = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
+            self.label = Label("Heloo, am snek", "Arial", 30, self.x, self.y, "Red")
 
     def Draw(self, surface):
         if self.responsive:
             mpos = pygame.mouse.get_pos()
-            if mpos[0] > self.x and mpos[0] < self.x+self.sx and mpos[1] > self.y and mpos[1] < self.y+self.sy:
+            if mpos[0] > self.x-self.sx/2 and mpos[0] < self.x+self.sx/2 and mpos[1] > self.y-self.sy/2 and mpos[1] < self.y+self.sy/2:
                 if pygame.mouse.get_pressed(1)[0]:
                     self.color = self.clickedcolor
                     self.bordercolor = self.borderclickedcolor
@@ -161,20 +161,20 @@ class Button():
         if not self.hidden:
             if not self.rounded:
                 if not self.bordered:
-                    pygame.draw.rect(surface, self.color, pygame.Rect(self.x, self.y, self.sx, self.sy))
+                    pygame.draw.rect(surface, self.color, pygame.Rect(self.x-self.sx/2, self.y-self.sy/2, self.sx, self.sy))
                 else:
-                    pygame.draw.rect(surface, self.bordercolor, pygame.Rect(self.x, self.y, self.sx, self.sy))
+                    pygame.draw.rect(surface, self.bordercolor, pygame.Rect(self.x-self.sx/2, self.y-self.sy/2, self.sx, self.sy))
                     pygame.draw.rect(surface, self.color, pygame.Rect(
-                            self.x+self.bordersize,
-                            self.y+self.bordersize,
+                            self.x-self.sx/2+self.bordersize,
+                            self.y-self.sy/2+self.bordersize,
                             self.sx-self.bordersize*2,
                             self.sy-self.bordersize*2
                     ))
             else:
                 if not self.bordered:
-                    draw_rounded_rect(surface, pygame.Rect(self.x, self.y, self.sx, self.sy), self.color, self.radius)
+                    draw_rounded_rect(surface, pygame.Rect(self.x-self.sx/2, self.y-self.sy/2, self.sx, self.sy), self.color, self.radius)
                 else:
-                    draw_bordered_rounded_rect(surface, pygame.Rect(self.x, self.y, self.sx, self.sy),
+                    draw_bordered_rounded_rect(surface, pygame.Rect(self.x-self.sx/2, self.y-self.sy/2, self.sx, self.sy),
                             self.color, self.bordercolor, self.radius, self.bordersize)
         self.label.Draw(surface)
 
@@ -192,9 +192,11 @@ class Label():
         self.color = pygame.Color(args[5])
         self.height = 1
         self.width = 1
+        self.align = 2
 
     def Draw(self, surface):
         text_surface = self.tfont.render(self.text, False, self.color)
         self.height = text_surface.get_height()
         self.width = text_surface.get_width()
-        surface.blit(text_surface, (self.x, self.y))
+        if self.align == 2:
+            surface.blit(text_surface, (self.x-self.width/2, self.y-self.height/2))
