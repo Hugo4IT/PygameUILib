@@ -35,3 +35,17 @@ fontcolor: #037CD6
 btnTest = Button(btnConfig)
 labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
 ```
+
+## Progress
+
+- Button: 85%
+  - Label settings need to be implemented
+- Label: 10%
+  - More customization options
+  - Alignment options
+  - Config implementation
+- Checkbox 0%
+- Slider 0%
+- InputField 0%
+
+For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hugo.vandekuilen1234567890@gmail.com)
