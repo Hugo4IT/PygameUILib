@@ -1,4 +1,6 @@
 # PygameUILib
+## WORK IN PROGRESS, PLEASE DONT USE YET
+#### Please go to bottom of the page for progress info
 A simple, fast GUI solution for Pygame
 
 For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hugo.vandekuilen1234567890@gmail.com)
@@ -20,13 +22,11 @@ borderclickedcolor: #A892DF // Border color on click                    [btn.bor
 hidden: False               // Hide Button                              [btn.hidden]
 responsive: True            // Reacts to movement/clicks                [btn.responsive]
 nonresponsivecolor: #3E4B50 // Color when responsive = False            [btn.nonresponsivecolor]
-fontpath: Arial             // Path to font or name of system font      [NOT IMPLEMENTED]
 fontcolor: #FFFFFF          // Font color (Textcolor)                   [NOT IMPLEMENTED]
 fontsize: auto              // Size of font (can be int or auto)        [NOT IMPLEMENTED]
 """
 
 labelConfig = """
-font: Arial
 fontsize: 30
 position: 500,500
 fontcolor: #037CD6
