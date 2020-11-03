@@ -40,6 +40,7 @@ labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
 
 - Button: 85%
   - Label settings need to be implemented
+  - Default values need to be added
 - Label: 10%
   - More customization options
   - Alignment options

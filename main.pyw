@@ -1,14 +1,13 @@
 #Libraries
 import sys
 import pygame
-import PygameUI
 import pygame.freetype
 from pygame.locals import *
 
 #Classes & Variables
 from Player import Player           #Player Class
 from Settings import *              #Settings Variables
-from PygameUI import *              #UI Classes
+from PygameUILib import *           #UI Classes
 
 pygame.init()
 

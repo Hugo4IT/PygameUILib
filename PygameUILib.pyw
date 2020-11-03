@@ -8,9 +8,30 @@
 #                                                   #
 #===================================================#
 
+print()
+
+print("""
+#===================================================#
+#                                                   #
+#   Title: PygameUI                                 #
+#   Author: Hugo van de Kuilen from Hugo4IT         #
+#   Website: Hugo4IT.com                            #
+#   Special thanks: Glenn Mackintosh                #
+#                                                   #
+#===================================================#
+""")
+
+print()
+
+print("[PygameUILib] Loading Libraries...")
+
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import pygame.gfxdraw
 import pygame.freetype
+
+print("[PygameUILib] Loading PygameUILib...")
 
 # Special thanks to Glenn Mackintosh on StackOverflow(https://stackoverflow.com/a/61961971)
 # for creating draw_rounded_rect and draw_bordered_rounded_rect
@@ -148,7 +169,7 @@ class Button():
                 if pygame.mouse.get_pressed(1)[0]:
                     self.color = self.clickedcolor
                     self.bordercolor = self.borderclickedcolor
-                    if hasattr(self, 'func'):
+                    if hasattr(self, 'func') and not self.hidden:
                         self.func()
                 else:
                     self.color = self.hovercolor
@@ -187,12 +208,28 @@ class Label():
             PreloadFont(args[1], args[2])
         self.text = args[0]
         self.tfont = loadedFonts[args[1]+"."+str(args[2])]
-        self.x = args[3]
-        self.y = args[4]
-        self.color = pygame.Color(args[5])
+        self.x = 0
+        self.y = 0
+        self.color = pygame.Color("Red")
         self.height = 1
         self.width = 1
         self.align = 2
+        if len(args) == 1:
+            self.x = 0
+            self.y = 0
+            self.sx = 100
+            self.sy = 100
+            self.color = pygame.Color("Red")
+            tc = args[0].split("\n")
+            for value in tc:
+                if ":" in value:
+                    k = value.split(":")[0]
+                    v = value.split(":")[1].replace(" ", "").replace("\t", "")
+                    if "//" in v :
+                        v = v.split("//")[0]
+                    if k == "position":
+                        self.x = int(v.split(",")[0])
+                        self.y = int(v.split(",")[1])
 
     def Draw(self, surface):
         text_surface = self.tfont.render(self.text, False, self.color)
@@ -200,3 +237,6 @@ class Label():
         self.width = text_surface.get_width()
         if self.align == 2:
             surface.blit(text_surface, (self.x-self.width/2, self.y-self.height/2))
+
+print("[PygameUILib] Done!")
+print()
