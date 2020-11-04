@@ -9,13 +9,17 @@ from Player import Player           #Player Class
 from Settings import *              #Settings Variables
 from PygameUILib import *           #UI Classes
 
+print("Pygame Init()")
 pygame.init()
 
+print("Capping FPS...")
 fps = 60
 fpsClock = pygame.time.Clock()
 
+print("Creating Screen")
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
+print("Creating Player")
 p = Player(200, 200)
 objects = []
 objects.append(p)
@@ -46,8 +50,10 @@ font: Arial
 fontsize: 30
 position: 500,500
 fontcolor: #037CD6
+hidden: False
 """
 
+print("Creating Button and Label")
 btnTest = Button(btnConfig)
 labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
 
@@ -65,6 +71,9 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                btnTest.hidden = not btnTest.hidden
     key_input = pygame.key.get_pressed()
     if key_input[pygame.K_LEFT]:
         p.rotation -= 4
@@ -74,9 +83,6 @@ while True:
         p.rotation += 4
     if key_input[pygame.K_DOWN]:
         p.Forward(-8)
-    if key_input[pygame.K_ESCAPE]:
-        pygame.quit()
-        sys.exit()
 
     p.Draw(screen)
     btnTest.Draw(screen)
