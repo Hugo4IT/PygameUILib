@@ -5,6 +5,11 @@ A simple, fast GUI solution for Pygame
 
 For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hugo.vandekuilen1234567890@gmail.com)
 
+## How to use:
+- Download this repo
+- Copy `PygameAnimationLib.pyw` and `PygameUILib.pyw` to your project folder
+- Profit
+
 ```python
 btnConfig = """
 position: 400,400           // Position X,Y (Center)                    [btn.x, btn.y]
