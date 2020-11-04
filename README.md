@@ -8,6 +8,7 @@ For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hu
 ## How to use:
 - Download this repo
 - Copy `PygameAnimationLib.pyw` and `PygameUILib.pyw` to your project folder
+- (Optional) Run main.pyw to test if it works/is something for you
 - Profit
 
 ```python
