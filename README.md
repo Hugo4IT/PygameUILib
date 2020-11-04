@@ -38,6 +38,7 @@ labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
 
 ## Progress
 
+- Animations: 1%
 - Button: 85%
   - Label settings need to be implemented
   - Default values need to be added
@@ -48,5 +49,9 @@ labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
 - Checkbox 0%
 - Slider 0%
 - InputField 0%
+
+## Currently working on
+- Creating PygameAnimationLib
+- Intergrating PygameAnimationLib
 
 For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hugo.vandekuilen1234567890@gmail.com)
