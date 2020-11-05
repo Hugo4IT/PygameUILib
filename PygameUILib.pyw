@@ -1,13 +1,3 @@
-
-#===================================================#
-#                                                   #
-#   Title: PygameUILib                              #
-#   Author: Hugo van de Kuilen from Hugo4IT         #
-#   Website: Hugo4IT.com                            #
-#   Special thanks: Glenn Mackintosh                #
-#                                                   #
-#===================================================#
-
 print("""
 #===================================================#
 #                                                   #
@@ -26,7 +16,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import pygame.gfxdraw
 import pygame.freetype
-import PygameAnimationLib
+from PygameAnimationLib import *
 
 print("[PygameUILib] Loading PygameUILib...")
 
