@@ -24,6 +24,12 @@ p = Player(200, 200)
 objects = []
 objects.append(p)
 
+bgColor1 = AnimatableValue(0)
+bgColor2 = 0
+bgColor3 = 0
+anim = Animation(bgColor1, Duration=2, From=0, To=255)
+anim.Play()
+
 btnConfig = """
 position: 400,400           // Position X,Y (Center)                    [btn.x, btn.y]
 size: 300,100               // Size X,Y (From Center)                   [btn.sx, btn.sy]
@@ -65,7 +71,8 @@ btnTest.SetFunction(QuitGame)
 
 # Game loop.
 while True:
-    screen.fill((0, 0, 0))
+    anim.Update()
+    screen.fill((bgColor1.value, bgColor2, bgColor3))
 
     for event in pygame.event.get():
         if event.type == QUIT:
