@@ -27,7 +27,7 @@ objects.append(p)
 bgColor1 = AnimatableValue(0)
 bgColor2 = 0
 bgColor3 = 0
-anim = Animation(bgColor1, Duration=2, From=0, To=255)
+anim = Animation(bgColor1, Duration=2, From=0, To=255, Loop=True)
 anim.Play()
 
 btnConfig = """
@@ -61,7 +61,7 @@ hidden: False
 
 print("Creating Button and Label")
 btnTest = Button(btnConfig)
-labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
+labelTest = Label("THAT WAS LEGITNESS", "Arial", 30, 500, 500, "Red")
 
 def QuitGame():
     pygame.quit()

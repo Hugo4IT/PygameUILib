@@ -21,7 +21,10 @@ def GetByID(address):
     return [x for x in globals().values() if id(x)==address]
 
 def Lerp(A, B, C):
-    return (C * A) + ((1-C) * B)
+    return A + C * (B - A)
+
+def EaseIn(a):
+    return a*a
 
 class EaseTypes(Enum):
     NONE = 1
@@ -50,17 +53,24 @@ class Animation:
 
     def Play(self):
         self.Playing = True
+        if self.OnStart is not None:
+            self.OnStart()
 
     def Stop(self):
         self.Playing = False
+        if self.OnEnd is not None:
+            self.OnEnd()
 
     def Update(self, fps = 60):
         if self.Playing:
             self.CurrentTime += self.Duration / fps
-            print("CT"+str(self.CurrentTime))
-            self.PercentageComplete = max(self.CurrentTime / self.Duration,1.0)
-            self.AnimValue.value = numpy.interp(self.From, self.To, self.PercentageComplete);
-            print("PC"+str(self.PercentageComplete))
-            print("AV"+str(self.AnimValue.value))
+            self.PercentageComplete = numpy.clip(self.CurrentTime / self.Duration, 0.0, 1.0)
+            self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseIn(self.PercentageComplete)), self.From, self.To)
             if self.Step is not None:
                 self.Step()
+            if self.PercentageComplete == 1.0:
+                if self.Loop == True:
+                    self.CurrentTime = 0
+                    self.PercentageComplete = 0.0
+                else:
+                    self.Stop()
