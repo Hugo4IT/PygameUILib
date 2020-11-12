@@ -17,8 +17,8 @@ import pygame
 from enum import Enum
 
 print("[PygameAnimationLib] Loading PygameAnimationLib...")
-def GetByID(address):
-    return [x for x in globals().values() if id(x)==address]
+def GetByID(ID):
+    return [x for x in globals().values() if id(x)==ID]
 
 def Lerp(A, B, C):
     return A + C * (B - A)
