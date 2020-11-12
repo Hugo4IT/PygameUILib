@@ -23,8 +23,17 @@ def GetByID(ID):
 def Lerp(A, B, C):
     return A + C * (B - A)
 
-def EaseIn(a):
-    return a*a
+def EaseIn(x):
+    return x*x*x
+
+def EaseOut(x):
+    return 1 - math.pow(1 - x, 3)
+
+def EaseInOut(x):
+    if x < 0.5:
+        return 4 * x * x * x
+    else:
+        return 1 - math.pow(-2 * x + 2, 3) / 2
 
 class EaseTypes(Enum):
     NONE = 1
@@ -37,7 +46,7 @@ class AnimatableValue:
         self.value = value
 
 class Animation:
-    def __init__(self, value, Duration = 1, From = 0, To = 100, Ease = EaseTypes.NONE, Loop = False, OnStart = None, Step = None, OnEnd = None):
+    def __init__(self, value, Duration = 1, From = 100, To = 0, Ease = EaseTypes.NONE, Loop = False, OnStart = None, Step = None, OnEnd = None):
         self.AnimValue = value
         self.OnStart = OnStart
         self.Step = Step
@@ -60,12 +69,32 @@ class Animation:
         self.Playing = False
         if self.OnEnd is not None:
             self.OnEnd()
+        self.CurrentTime = 0
+        self.PercentageComplete = 0
 
     def Update(self, fps = 60):
         if self.Playing:
             self.CurrentTime += self.Duration / fps
             self.PercentageComplete = numpy.clip(self.CurrentTime / self.Duration, 0.0, 1.0)
-            self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseIn(self.PercentageComplete)), self.From, self.To)
+            if self.From < self.To:
+                if self.Ease == EaseTypes.NONE:
+                    self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, self.PercentageComplete), self.From, self.To)
+                elif self.Ease == EaseTypes.EaseIn:
+                    self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseIn(self.PercentageComplete)), self.From, self.To)
+                elif self.Ease == EaseTypes.EaseOut:
+                    self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseOut(self.PercentageComplete)), self.From, self.To)
+                elif self.Ease == EaseTypes.EaseInOut:
+                    self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseInOut(self.PercentageComplete)), self.From, self.To)
+            else:
+                if self.Ease == EaseTypes.NONE:
+                    self.AnimValue.value = numpy.clip(Lerp(self.To, self.From, self.PercentageComplete), self.To, self.From)
+                elif self.Ease == EaseTypes.EaseIn:
+                    self.AnimValue.value = numpy.clip(Lerp(self.To, self.From, EaseIn(self.PercentageComplete)), self.To, self.From)
+                elif self.Ease == EaseTypes.EaseOut:
+                    self.AnimValue.value = numpy.clip(Lerp(self.To, self.From, EaseOut(self.PercentageComplete)), self.To, self.From)
+                elif self.Ease == EaseTypes.EaseInOut:
+                    self.AnimValue.value = numpy.clip(Lerp(self.To, self.From, EaseInOut(self.PercentageComplete)), self.To, self.From)
+            print(self.AnimValue.value)
             if self.Step is not None:
                 self.Step()
             if self.PercentageComplete == 1.0:
