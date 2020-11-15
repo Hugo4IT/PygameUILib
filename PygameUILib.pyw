@@ -157,7 +157,7 @@ class Button():
                         self.nonresponsivecolor = pygame.Color(v)
             self.label = Label("Heloo, am snek", "Arial", 30, self.x, self.y, "#A911BD")
 
-    def Draw(self, surface):
+    def Draw(self, surface, fps = 60):
         if self.responsive:
             mpos = pygame.mouse.get_pos()
             if mpos[0] > self.x-self.sx/2 and mpos[0] < self.x+self.sx/2 and mpos[1] > self.y-self.sy/2 and mpos[1] < self.y+self.sy/2:
@@ -246,7 +246,7 @@ class Label():
             PreloadFont(font.split(".")[0], int(font.split(".")[1]))
         self.tfont = loadedFonts[font]
 
-    def Draw(self, surface):
+    def Draw(self, surface, fps = 60):
         if not self.hidden:
             text_surface = self.tfont.render(self.text, False, self.color)
             self.height = text_surface.get_height()
@@ -260,6 +260,16 @@ class Label():
 
 class Slider():
     def __init__(self, config):
+        self.x = 0
+        self.y = 0
+        self.width = 100
+        self.linesize = 10
+        self.knobsize = 5
+        self.linecolor = pygame.Color("Red")
+        self.knobcolor = pygame.Color("Red")
+        self.value = 0
+        self.max = 100
+        self.responsive = True
         self.dragging = False
         tc = config.split("\n")
         for value in tc:
@@ -288,7 +298,7 @@ class Slider():
                 elif k == "responsive":
                     self.responsive = v == "True"
 
-    def Draw(self, surface):
+    def Draw(self, surface, fps = 60):
         global PUIL_CursorDragging
         if Distance(int((self.x-self.width/2)+self.value*(self.width/self.max)), pygame.mouse.get_pos()[0], self.y, pygame.mouse.get_pos()[1]) <= self.knobsize:
             if self.responsive:
@@ -310,7 +320,7 @@ class Slider():
                 tp2 -= self.x-self.width/2
                 tp2 /= self.width/self.max
                 self.value = tp2
-        draw_rounded_rect(surface, pygame.Rect(self.x-self.width/2-self.knobsize, int(self.y-self.linesize/2), self.width+self.knobsize*2,
+        draw_rounded_rect(surface, pygame.Rect(self.x-self.width/2-self.knobsize+4, int(self.y-self.linesize/2), self.width+self.knobsize*2-8,
         int(self.linesize)), self.linecolor, int(math.floor(self.linesize/2)-2))
         pygame.draw.circle(surface, self.knobcolor, (int((self.x-self.width/2)+self.value*(self.width/self.max)), int(self.y)), self.knobsize)
 

@@ -37,6 +37,13 @@ fontcolor: #FFFFFF          // Font color (Textcolor)                   [NOT IMP
 """
 
 labelConfig = """
+position: 250,475
+fontcolor: #A911BD
+hidden: False
+align: Center
+"""
+
+sliderLabelConfig = """
 position: 450,500
 fontcolor: #A911BD
 hidden: False
@@ -55,6 +62,17 @@ max: 100
 responsive: False
 """
 
+SliderConfig2 = """
+position: 900, 800
+linecolor: #28283D
+knobcolor: #A911BD
+width: 300
+linesize: 60
+knobsize: 30
+value: 0
+max: 100
+"""
+
 print("Initializing User Interface Elements")
 #AnimationLib Demo UI Elements
 uielems = []
@@ -70,76 +88,79 @@ uielems.append(s3)
 s4 = Slider(SliderConfig)
 s4.y = 400
 uielems.append(s4)
-l1 = Label(labelConfig)
+l1 = Label(sliderLabelConfig)
 l1.y = 100
 l1.SetFont("Arial.30")
 l1.text = "None (Linear)"
 uielems.append(l1)
-l2 = Label(labelConfig)
+l2 = Label(sliderLabelConfig)
 l2.y = 200
 l2.text = "Ease In"
 l2.SetFont("Arial.30")
 uielems.append(l2)
-l3 = Label(labelConfig)
+l3 = Label(sliderLabelConfig)
 l3.y = 300
 l3.SetFont("Arial.30")
 l3.text = "Ease Out"
 uielems.append(l3)
-l4 = Label(labelConfig)
+l4 = Label(sliderLabelConfig)
 l4.y = 400
 l4.SetFont("Arial.30")
 l4.text = "Ease In & Out"
 uielems.append(l4)
+l5 = Label(labelConfig)
+l5.SetFont("Arial.30")
+l5.text = "Slider: 2s Animation"
+uielems.append(l5)
+l6 = Label(labelConfig)
+l6.SetFont("Arial.30")
+l6.text = "FPS: 999"
+l6.x = 50
+l6.align = 0
+l6.y = screen.get_height() - 50
+uielems.append(l6)
+
+#Styles Demo UI Elements
+s5 = Slider(SliderConfig2)
+s5.y = 100
+s5.value = 66
+uielems.append(s5)
+s6 = Slider(SliderConfig2)
+s6.y = 200
+s6.knobsize = 15
+s6.linesize = 6
+uielems.append(s6)
+s7 = Slider(SliderConfig2)
+s7.y = 300
+s7.knobcolor = pygame.Color("#2a4151")
+s7.linecolor = pygame.Color("#83f7a0")
+s7.value = 33
+uielems.append(s7)
+s8 = Slider(SliderConfig2)
+s8.y = 400
+s8.value = 100
+uielems.append(s8)
 
 print("Creating Animations")
 animations = []
 NoEasingValue = AnimatableValue(0)
-NoEasing = Animation(NoEasingValue, From = 0, To = 100, Duration = 3, Ease = EaseTypes.NONE)
+NoEasing = Animation(NoEasingValue, From = 0, To = 100, Duration = 2, Ease = EaseTypes.NONE, Loop = True, LoopReverse = True)
 animations.append(NoEasing)
 EaseInValue = AnimatableValue(0)
-EaseIn = Animation(EaseInValue, From = 0, To = 100, Duration = 3, Ease = EaseTypes.EaseIn)
+EaseIn = Animation(EaseInValue, From = 0, To = 100, Duration = 2, Ease = EaseTypes.EaseIn, Loop = True, LoopReverse = True)
 animations.append(EaseIn)
 EaseOutValue = AnimatableValue(0)
-EaseOut = Animation(EaseOutValue, From = 0, To = 100, Duration = 3, Ease = EaseTypes.EaseOut)
+EaseOut = Animation(EaseOutValue, From = 0, To = 100, Duration = 2, Ease = EaseTypes.EaseOut, Loop = True, LoopReverse = True)
 animations.append(EaseOut)
 EaseInOutValue = AnimatableValue(0)
-EaseInOut = Animation(EaseInOutValue, From = 0, To = 100, Duration = 3, Ease = EaseTypes.EaseInOut)
+EaseInOut = Animation(EaseInOutValue, From = 0, To = 100, Duration = 2, Ease = EaseTypes.EaseInOut, Loop = True, LoopReverse = True)
 animations.append(EaseInOut)
 for a in animations:
     a.Play()
-RNoEasingValue = AnimatableValue(100)
-RNoEasing = Animation(RNoEasingValue, From = 100, To = 0, Duration = 3, Ease = EaseTypes.NONE)
-animations.append(RNoEasing)
-REaseInValue = AnimatableValue(100)
-REaseIn = Animation(REaseInValue, From = 100, To = 0, Duration = 3, Ease = EaseTypes.EaseIn)
-animations.append(REaseIn)
-REaseOutValue = AnimatableValue(100)
-REaseOut = Animation(REaseOutValue, From = 100, To = 0, Duration = 3, Ease = EaseTypes.EaseOut)
-animations.append(REaseOut)
-REaseInOutValue = AnimatableValue(100)
-REaseInOut = Animation(REaseInOutValue, From = 100, To = 0, Duration = 3, Ease = EaseTypes.EaseInOut)
-animations.append(REaseInOut)
-
-def SetRev():
-    global Reverse
-    Reverse = True
-    RNoEasing.Play()
-
-NoEasing.OnEnd = SetRev
-EaseIn.OnEnd = REaseIn.Play
-EaseOut.OnEnd = REaseOut.Play
-EaseInOut.OnEnd = REaseInOut.Play
-RNoEasing.OnEnd = NoEasing.Play
-REaseIn.OnEnd = EaseIn.Play
-REaseOut.OnEnd = EaseOut.Play
-REaseInOut.OnEnd = EaseInOut.Play
 
 def QuitGame():
     pygame.quit()
     sys.exit()
-
-global Reverse
-Reverse = False
 
 # Game loop.
 while True:
@@ -154,29 +175,21 @@ while True:
                 QuitGame()
     key_input = pygame.key.get_pressed()
 
-    if EaseInValue.value == 100:
-        Reverse = True
-        EaseInValue.value = 0
-    #if REaseInValue.value == 0:
-    #    Reverse = False
-    #    REaseInValue.value = 100
+    s1.value = NoEasingValue.value
+    s2.value = EaseInValue.value
+    s3.value = EaseOutValue.value
+    s4.value = EaseInOutValue.value
 
-    if not Reverse:
-        s1.value = RNoEasingValue.value
-        s2.value = REaseInValue.value
-        s3.value = REaseOutValue.value
-        s4.value = REaseInOutValue.value
-    else:
-        s1.value = RNoEasingValue.value
-        s2.value = REaseInValue.value
-        s3.value = REaseOutValue.value
-        s4.value = REaseInOutValue.value
+    tfps = fpsClock.get_fps()
+    if tfps < 3:
+        tfps = 3
+    l6.text = "FPS: "+str(int(tfps))
 
     for a in animations:
-        a.Update(fps)
+        a.Update(int(tfps))
 
     for e in uielems:
-        e.Draw(screen)
+        e.Draw(screen, int(tfps))
 
     pygame.display.flip()
-    fpsClock.tick(fps)
+    fpsClock.tick(1000)

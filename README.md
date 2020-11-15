@@ -3,7 +3,7 @@
 #### Please go to bottom of the page for progress info
 A simple, fast GUI solution for Pygame
 
-For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hugo.vandekuilen1234567890@gmail.com)
+For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
 
 ## How to use:
 - Download this repo
@@ -42,22 +42,4 @@ btnTest = Button(btnConfig)
 labelTest = Label("Heloo, am snek", "Arial", 30, 500, 500, "Red")
 ```
 
-## Progress
-
-- Animations: 1%
-- Button: 85%
-  - Label settings need to be implemented
-  - Default values need to be added
-- Label: 10%
-  - More customization options
-  - Alignment options
-  - Config implementation
-- Checkbox 0%
-- Slider 0%
-- InputField 0%
-
-## Currently working on
-- Creating PygameAnimationLib
-- Intergrating PygameAnimationLib
-
-For submissions of ideas/elements, Please contact [Hugo van de Kuilen](mailto:hugo.vandekuilen1234567890@gmail.com)
+For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
