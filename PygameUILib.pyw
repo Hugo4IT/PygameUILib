@@ -1,10 +1,9 @@
 print("""
 #===================================================#
 #                                                   #
-#   Title: PygameUI                                 #
+#   Title: PygameAnimationLib                       #
 #   Author: Hugo van de Kuilen from Hugo4IT         #
 #   Website: Hugo4IT.com                            #
-#   Special thanks: Glenn Mackintosh                #
 #                                                   #
 #===================================================#
 """)
@@ -21,6 +20,12 @@ import pygame.freetype
 from PygameAnimationLib import *
 
 print("[PygameUILib] Loading PygameUILib...")
+
+# Special thanks to andreas dr and Eli on StackOverflow(https://stackoverflow.com/a/62480486)
+# for creating draw_circle
+def draw_circle(surface, x, y, radius, color):
+    pygame.gfxdraw.aacircle(surface, x, y, radius, color)
+    pygame.gfxdraw.filled_circle(surface, x, y, radius, color)
 
 # Special thanks to Glenn Mackintosh on StackOverflow(https://stackoverflow.com/a/61961971)
 # for creating draw_rounded_rect and draw_bordered_rounded_rect
@@ -103,6 +108,13 @@ def PreloadFont(fontname, *fontsizes):
 class Button():
     def __init__(self, *args):
 
+        #Initialize Animations
+        self.ColorAnimationValue = AnimatableValue(pygame.Color("Red"))
+        self.ColorAnimation = Animation(self.ColorAnimationValue, From=pygame.Color("Red"), To=pygame.Color("Blue"),
+                                        Ease=EaseTypes.EaseOut)
+
+        #Initialize Default values and read config file/string
+        self.text = "Placeholder"
         if len(args) == 5:
             self.x = args[0]            # X Position
             self.y = args[1]            # Y Position
@@ -158,7 +170,17 @@ class Button():
                         self.nonresponsivecolor = pygame.Color(v)
             self.label = Label("Heloo, am snek", "Arial", 30, self.x, self.y, "#A911BD")
 
+        #Initialize Default Font
+        self.SetFont("Arial", 30)
+
+    def SetFont(self, font, fontsize):
+        self.label.SetFont(font, fontsize)
+
     def Draw(self, surface, fps = 60):
+        self.label.x = self.x
+        self.label.y = self.y
+        self.label.text = self.text
+        self.ColorAnimation.Update(fps)
         if self.responsive:
             mpos = pygame.mouse.get_pos()
             if mpos[0] > self.x-self.sx/2 and mpos[0] < self.x+self.sx/2 and mpos[1] > self.y-self.sy/2 and mpos[1] < self.y+self.sy/2:
@@ -195,11 +217,13 @@ class Button():
                             self.color, self.bordercolor, self.radius, self.bordersize)
         self.label.Draw(surface)
 
-    def SetFunction(self, func):
+    def SetFunction(self, func, *args):
         self.func = func
 
 class Label():
     def __init__(self, *args):
+        self.SetFont("Arial", 30)
+        self.isttf = False
         self.x = 0
         self.y = 0
         self.color = pygame.Color("Red")
@@ -243,14 +267,21 @@ class Label():
             self.y = args[4]
             self.color = pygame.Color(args[5])
 
-    def SetFont(self, font):
-        if font not in loadedFonts:
-            PreloadFont(font.split(".")[0], int(font.split(".")[1]))
-        self.tfont = loadedFonts[font]
+    def SetFont(self, font, fontsize):
+        if font+"."+str(fontsize) not in loadedFonts:
+            PreloadFont(font, fontsize)
+        self.isttf = False
+        if ".ttf" in font:
+            font = font.replace(".ttf", "")
+            self.isttf = True
+        self.tfont = loadedFonts[font+"."+str(fontsize)]
 
     def Draw(self, surface, fps = 60):
         if not self.hidden:
-            text_surface = self.tfont.render(self.text, False, self.color)
+            if not self.isttf:
+                text_surface = self.tfont.render(self.text, False, self.color)
+            else:
+                text_surface, r = self.tfont.render(text=self.text, fgcolor=self.color)
             self.height = text_surface.get_height()
             self.width = text_surface.get_width()
             if self.align == 0:
@@ -324,7 +355,7 @@ class Slider():
                 self.value = tp2
         draw_rounded_rect(surface, pygame.Rect(self.x-self.width/2-self.knobsize+4, int(self.y-self.linesize/2), self.width+self.knobsize*2-8,
         int(self.linesize)), self.linecolor, int(math.floor(self.linesize/2)-2))
-        pygame.draw.circle(surface, self.knobcolor, (int((self.x-self.width/2)+self.value*(self.width/self.max)), int(self.y)), self.knobsize)
+        draw_circle(surface, int((self.x-self.width/2)+self.value*(self.width/self.max)), int(self.y), self.knobsize, self.knobcolor)
 
 print("[PygameUILib] Done!")
 print()

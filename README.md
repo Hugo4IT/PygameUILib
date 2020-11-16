@@ -11,6 +11,8 @@ For progress info or submissions of ideas/elements, click [Here](https://trello.
 - Copy `PygameAnimationLib.pyw` and `PygameUILib.pyw` to your project folder
 - Profit
 
+### CURRENT DOCUMENTATION OUT OF DATE
+
 ```python
 btnConfig = """
 position: 400,400           // Position X,Y (Center)                    [btn.x, btn.y]

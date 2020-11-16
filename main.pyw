@@ -19,7 +19,7 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
 btnConfig = """
 position: 400,400           // Position X,Y (Center)                    [btn.x, btn.y]
-size: 300,100               // Size X,Y (From Center)                   [btn.sx, btn.sy]
+size: 150,100               // Size X,Y (From Center)                   [btn.sx, btn.sy]
 color: #263238              // Color Hex/Name                           [btn.maincolor, current color = btn.color]
 hovercolor: #303C42         // Color on mouse hover                     [btn.hovercolor]
 clickedcolor: #A911BD       // Color on click                           [btn.clickedcolor]
@@ -90,30 +90,30 @@ s4.y = 400
 uielems.append(s4)
 l1 = Label(sliderLabelConfig)
 l1.y = 100
-l1.SetFont("Arial.30")
+l1.SetFont("Fonts/Roboto-Thin.ttf", 40)
 l1.text = "None (Linear)"
 uielems.append(l1)
 l2 = Label(sliderLabelConfig)
 l2.y = 200
 l2.text = "Ease In"
-l2.SetFont("Arial.30")
+l2.SetFont("Fonts/Roboto-Thin.ttf", 40)
 uielems.append(l2)
 l3 = Label(sliderLabelConfig)
 l3.y = 300
-l3.SetFont("Arial.30")
+l3.SetFont("Fonts/Roboto-Thin.ttf", 40)
 l3.text = "Ease Out"
 uielems.append(l3)
 l4 = Label(sliderLabelConfig)
 l4.y = 400
-l4.SetFont("Arial.30")
+l4.SetFont("Fonts/Roboto-Thin.ttf", 40)
 l4.text = "Ease In & Out"
 uielems.append(l4)
 l5 = Label(labelConfig)
-l5.SetFont("Arial.30")
+l5.SetFont("Fonts/Roboto-Thin.ttf", 40)
 l5.text = "Slider: 2s Animation"
 uielems.append(l5)
 l6 = Label(labelConfig)
-l6.SetFont("Arial.30")
+l6.SetFont("Fonts/Roboto-Thin.ttf", 40)
 l6.text = "FPS: 999"
 l6.x = 50
 l6.align = 0
@@ -158,13 +158,16 @@ animations.append(EaseInOut)
 for a in animations:
     a.Play()
 
-btnAnimationTest = Button(btnConfig)
-btnAnimationTest.y = 600
-uielems.append(btnAnimationTest)
-
 def QuitGame():
     pygame.quit()
     sys.exit()
+
+btnAnimationTest = Button(btnConfig)
+btnAnimationTest.y = 600
+btnAnimationTest.SetFont("Fonts/Roboto-Thin.ttf", 40)
+btnAnimationTest.SetFunction(QuitGame)
+btnAnimationTest.text = "Quit"
+uielems.append(btnAnimationTest)
 
 # Game loop.
 while True:
@@ -196,4 +199,4 @@ while True:
         e.Draw(screen, int(tfps))
 
     pygame.display.flip()
-    fpsClock.tick(1000)
+    fpsClock.tick(fps)

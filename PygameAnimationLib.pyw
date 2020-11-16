@@ -76,6 +76,10 @@ class Animation:
         self.CurrentTime = 0
         self.PercentageComplete = 0
 
+    def Restart(self):
+        Stop()
+        Play()
+
     def Update(self, fps = 60):
         if self.Playing:
             if fps > 3:
