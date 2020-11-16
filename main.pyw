@@ -158,6 +158,10 @@ animations.append(EaseInOut)
 for a in animations:
     a.Play()
 
+btnAnimationTest = Button(btnConfig)
+btnAnimationTest.y = 600
+uielems.append(btnAnimationTest)
+
 def QuitGame():
     pygame.quit()
     sys.exit()

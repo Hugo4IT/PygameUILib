@@ -102,6 +102,7 @@ def PreloadFont(fontname, *fontsizes):
 
 class Button():
     def __init__(self, *args):
+
         if len(args) == 5:
             self.x = args[0]            # X Position
             self.y = args[1]            # Y Position
@@ -128,7 +129,7 @@ class Button():
                         self.sx = int(v.split(",")[0])
                         self.sy = int(v.split(",")[1])
                     elif k == "color":
-                        self.color = pygame.Color(str(v))
+                        self.color = AnimatableValue(pygame.Color(str(v)))
                         self.maincolor = pygame.Color(str(v))
                     elif k == "rounded":
                         self.rounded = v == "True"
@@ -205,6 +206,7 @@ class Label():
         self.height = 1
         self.width = 1
         self.align = 2
+        self.hidden = False
         if len(args) == 1:
             self.x = 0
             self.y = 0
