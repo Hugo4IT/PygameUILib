@@ -3,9 +3,17 @@ import sys
 import pygame
 import pygame.freetype
 from pygame.locals import *
+from screeninfo import get_monitors
 
 #Classes & Variables
 from PygameUILib import *           #UI Classes
+
+screensize = (1920, 1080)
+
+for m in get_monitors():
+    print(str(m))
+    screensize = m.width, m.height
+print(screensize)
 
 print("Pygame Init()")
 pygame.init()
@@ -15,7 +23,10 @@ fps = 60
 fpsClock = pygame.time.Clock()
 
 print("Creating Screen")
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+Fullscreen = False
+screen = pygame.display.set_mode(screensize, pygame.FULLSCREEN)
+if not Fullscreen:
+    screen = pygame.display.set_mode(screensize)
 
 btnConfig = """
 position: 400,400           // Position X,Y (Center)                    [btn.x, btn.y]

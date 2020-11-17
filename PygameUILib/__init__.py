@@ -1,7 +1,7 @@
 print("""
 #===================================================#
 #                                                   #
-#   Title: PygameAnimationLib                       #
+#   Title: PygameUILib                              #
 #   Author: Hugo van de Kuilen from Hugo4IT         #
 #   Website: Hugo4IT.com                            #
 #                                                   #
@@ -184,7 +184,7 @@ class Button():
         if self.responsive:
             mpos = pygame.mouse.get_pos()
             if mpos[0] > self.x-self.sx/2 and mpos[0] < self.x+self.sx/2 and mpos[1] > self.y-self.sy/2 and mpos[1] < self.y+self.sy/2:
-                if pygame.mouse.get_pressed(1)[0]:
+                if pygame.mouse.get_pressed(3)[0]:
                     self.color = self.clickedcolor
                     self.bordercolor = self.borderclickedcolor
                     if hasattr(self, 'func') and not self.hidden:
@@ -335,12 +335,12 @@ class Slider():
         global PUIL_CursorDragging
         if Distance(int((self.x-self.width/2)+self.value*(self.width/self.max)), pygame.mouse.get_pos()[0], self.y, pygame.mouse.get_pos()[1]) <= self.knobsize:
             if self.responsive:
-                if pygame.mouse.get_pressed(1)[0]:
+                if pygame.mouse.get_pressed(3)[0]:
                     if not PUIL_CursorDragging:
                         self.dragging = True
                         PUIL_CursorDragging = True
         if self.dragging:
-            if pygame.mouse.get_pressed(1)[0] == False:
+            if pygame.mouse.get_pressed(3)[0] == False:
                 self.dragging = False
                 PUIL_CursorDragging = False
             tp = pygame.mouse.get_pos()
