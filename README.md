@@ -13,6 +13,6 @@ For progress info or submissions of ideas/elements, click [Here](https://trello.
 
 ## How to use:
 - Windows
-  - Press <span style="font-family: 'Icons';">f</span>
+  - Press <span style="font-family: 'Icons';"></span>
 
 For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
