@@ -21,7 +21,17 @@ def GetByID(ID):
     return [x for x in globals().values() if id(x)==ID]
 
 def Lerp(A, B, C):
-    return A + C * (B - A)
+    if not type(A) == type(B):
+        if not type(A) == numpy.ndarray:
+            print("Error: Animation.From and Animation.To must be the same type")
+            print("Type of Animation.From: "+str(type(A)))
+            print("Type of Animation.To: "+str(type(B)))
+    if type(A) == pygame.Color:
+        C = pygame.Color(int(C), int(C), int(C))
+    result = A + C * (B - A)
+    if type(A) == pygame.Color:
+        result = pygame.Color(int(result.r), int(result.g), int(result.b))
+    return result
 
 def EaseIn(x):
     return x*x*x
@@ -77,8 +87,8 @@ class Animation:
         self.PercentageComplete = 0
 
     def Restart(self):
-        Stop()
-        Play()
+        self.Stop()
+        self.Play()
 
     def Update(self, fps = 60):
         if self.Playing:
@@ -88,13 +98,13 @@ class Animation:
                 self.CurrentTime += 0.01
             self.PercentageComplete = numpy.clip(self.CurrentTime / self.Duration, 0.0, 1.0)
             if self.Ease == EaseTypes.NONE:
-                self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, self.PercentageComplete), self.From, self.To)
+                self.AnimValue.value = Lerp(self.From, self.To, self.PercentageComplete)
             elif self.Ease == EaseTypes.EaseIn:
-                self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseIn(self.PercentageComplete)), self.From, self.To)
+                self.AnimValue.value = Lerp(self.From, self.To, EaseIn(self.PercentageComplete))
             elif self.Ease == EaseTypes.EaseOut:
-                self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseOut(self.PercentageComplete)), self.From, self.To)
+                self.AnimValue.value = Lerp(self.From, self.To, EaseOut(self.PercentageComplete))
             elif self.Ease == EaseTypes.EaseInOut:
-                self.AnimValue.value = numpy.clip(Lerp(self.From, self.To, EaseInOut(self.PercentageComplete)), self.From, self.To)
+                self.AnimValue.value = Lerp(self.From, self.To, EaseInOut(self.PercentageComplete))
             if self.R:
                 self.AnimValue.value = self.To - self.AnimValue.value
             if self.Step is not None:
