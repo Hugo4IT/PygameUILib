@@ -11,9 +11,7 @@ from PygameUILib import *           #UI Classes
 screensize = (1920, 1080)
 
 for m in get_monitors():
-    print(str(m))
     screensize = m.width, m.height
-print(screensize)
 
 print("Pygame Init()")
 pygame.init()
@@ -23,7 +21,7 @@ fps = 60
 fpsClock = pygame.time.Clock()
 
 print("Creating Screen")
-Fullscreen = False
+Fullscreen = True
 screen = pygame.display.set_mode(screensize, pygame.FULLSCREEN)
 if not Fullscreen:
     screen = pygame.display.set_mode(screensize)
