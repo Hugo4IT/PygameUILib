@@ -105,6 +105,11 @@ def PreloadFont(fontname, *fontsizes):
             tFont = pygame.font.SysFont(fontname, x)
         loadedFonts[fontname.replace(".ttf", "")+"."+str(x)] = tFont
 
+class IFType(Enum):
+    Text = 0
+    Multiline = 1
+    Number = 2
+
 class Button():
     def __init__(self, *args):
 
@@ -158,12 +163,13 @@ class Button():
 
         #Initialize Default Font
         self.SetFont("Arial", 30)
+        self.label.align = 2
 
     def ApplyConfig(self, config):
         tc = config.split("\n")
         for value in tc:
             if ":" in value:
-                k = value.split(":")[0]
+                k = value.split(":")[0].replace(" ", "").replace("\t", "")
                 v = value.split(":")[1].replace(" ", "").replace("\t", "")
                 if "//" in v :
                     v = v.split("//")[0]
@@ -176,6 +182,7 @@ class Button():
                 elif k == "color":
                     self.color = AnimatableValue(pygame.Color(str(v)))
                     self.maincolor = pygame.Color(str(v))
+                    self.ColorAnimation.From = self.maincolor
                 elif k == "rounded":
                     self.rounded = v == "True"
                 elif k == "radius":
@@ -187,6 +194,7 @@ class Button():
                 elif k == "bordercolor":
                     self.bordercolor = pygame.Color(v)
                     self.mainbordercolor = pygame.Color(v)
+                    self.BorderColorAnimation.From = self.maincolor
                 elif k == "hovercolor":
                     self.hovercolor = pygame.Color(v)
                 elif k == "clickedcolor":
@@ -204,6 +212,7 @@ class Button():
                 elif k == "fontcolor":
                     self.fontcolor = pygame.Color(v)
                     self.mainfontcolor = pygame.Color(v)
+                    self.FontColorAnimation.From = self.maincolor
                 elif k == "fonthovercolor":
                     self.fonthovercolor = pygame.Color(v)
                 elif k == "fontclickedcolor":
@@ -297,43 +306,30 @@ class Button():
 
 class Label():
     def __init__(self, *args):
+
+        self.defaultConfig = """
+        position: 250,475
+        fontcolor: #A911BD
+        hidden: False
+        align: Center
+        """
+
         self.SetFont("Arial", 30)
         self.isttf = False
-        self.x = 0
-        self.y = 0
-        self.color = pygame.Color("Red")
         self.height = 1
         self.width = 1
-        self.align = 2
         self.hidden = False
+        self.align = 0
+        self.ApplyConfig(self.defaultConfig)
         if len(args) == 1:
             self.x = 0
             self.y = 0
             self.sx = 100
             self.sy = 100
             self.color = pygame.Color("Red")
-            tc = args[0].split("\n")
-            for value in tc:
-                if ":" in value:
-                    k = value.split(":")[0]
-                    v = value.split(":")[1].replace(" ", "").replace("\t", "")
-                    if "//" in v :
-                        v = v.split("//")[0]
-                    if k == "position":
-                        self.x = int(v.split(",")[0])
-                        self.y = int(v.split(",")[1])
-                    elif k == "fontcolor":
-                        self.color = pygame.Color(v)
-                    elif k == "hidden":
-                        self.hidden = v == "True"
-                    elif k == "align":
-                        if v == "Left":
-                            self.align = 0
-                        if v == "Right":
-                            self.align = 1
-                        if v == "Middle" or v == "Center":
-                            self.align = 2
-        else:
+            self.align = 0
+            self.ApplyConfig(args[0])
+        elif len(args) == 6:
             if args[1]+"."+str(args[2]) not in loadedFonts:
                 PreloadFont(args[1], args[2])
             self.tfont = loadedFonts[args[1]+"."+str(args[2])]
@@ -341,6 +337,29 @@ class Label():
             self.x = args[3]
             self.y = args[4]
             self.color = pygame.Color(args[5])
+
+    def ApplyConfig(self, config):
+        tc = config.split("\n")
+        for value in tc:
+            if ":" in value:
+                k = value.split(":")[0].replace(" ", "").replace("\t", "")
+                v = value.split(":")[1].replace(" ", "").replace("\t", "")
+                if "//" in v :
+                    v = v.split("//")[0]
+                if k == "position":
+                    self.x = int(v.split(",")[0])
+                    self.y = int(v.split(",")[1])
+                elif k == "fontcolor":
+                    self.color = pygame.Color(v)
+                elif k == "hidden":
+                    self.hidden = v == "True"
+                elif k == "align":
+                    if v == "Left":
+                        self.align = 0
+                    if v == "Right":
+                        self.align = 1
+                    if v == "Middle" or v == "Center":
+                        self.align = 2
 
     def SetFont(self, font, fontsize):
         if font+"."+str(fontsize) not in loadedFonts:
@@ -382,7 +401,7 @@ class Slider():
         tc = config.split("\n")
         for value in tc:
             if ":" in value:
-                k = value.split(":")[0]
+                k = value.split(":")[0].replace(" ", "").replace("\t", "")
                 v = value.split(":")[1].replace(" ", "").replace("\t", "")
                 if "//" in v :
                     v = v.split("//")[0]
@@ -434,6 +453,69 @@ class Slider():
         int(self.linesize)), self.linecolor, int(math.floor(self.linesize/2)-2))
         draw_circle(surface, int((self.x-self.width/2)+self.value*(self.width/self.max)),
                                 int(self.y), self.knobsize, self.knobcolor)
+
+class InputField():
+    def __init__(self, config = None):
+        #Initialize Animations
+
+
+        #Initialize Assistant UIElements
+        self.label = Label()
+        self.label.align = 1
+
+        #Initialize Default values and read config file/string
+        self.defaultConfig = """
+        position: 400,400
+        width: 300
+        color: #263238
+        hidden: False
+        responsive: True
+        nonresponsivecolor: #3E4B50
+        placeholdercolor: #28283D
+        """
+        self.placeholder = "Enter text..."
+
+        self.ApplyConfig(self.defaultConfig)
+        if not config == None:
+            self.ApplyConfig(config)
+
+        self.label.SetFont("Fonts/Roboto-Thin.ttf", 30)
+
+    def ApplyConfig(self, config):
+        tc = config.split("\n")
+        for value in tc:
+            if ":" in value:
+                k = value.split(":")[0].replace(" ", "").replace("\t", "")
+                v = value.split(":")[1].replace(" ", "").replace("\t", "")
+                if "//" in v :
+                    v = v.split("//")[0]
+                print(str(k), str(v))
+                if k == "position":
+                    self.x = int(v.split(",")[0])
+                    self.y = int(v.split(",")[1])
+                elif k == "width":
+                    self.width = int(v)
+                elif k == "color":
+                    self.color = AnimatableValue(pygame.Color(str(v)))
+                    self.maincolor = pygame.Color(str(v))
+                elif k == "hidden":
+                    self.hidden = v == "True"
+                elif k == "responsive":
+                    self.responsive = v == "True"
+                elif k == "nonresponsivecolor":
+                    self.nonresponsivecolor = pygame.Color(v)
+                elif k == "placeholdercolor":
+                    self.placeholdercolor = pygame.Color(v)
+
+    def SetPlaceholder(self, p):
+        self.placeholder = p
+
+    def Draw(self, surface, fps = 60):
+        self.label.x = self.x-self.width/2
+        self.label.y = self.y
+        self.label.text = self.placeholder
+        self.label.color = self.placeholdercolor
+
 
 print("[PygameUILib] Done!")
 print()
