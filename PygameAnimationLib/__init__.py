@@ -27,11 +27,13 @@ def Lerp(A, B, C):
             print("Type of Animation.From: "+str(type(A)))
             print("Type of Animation.To: "+str(type(B)))
     if type(A) == pygame.Color:
-        C = pygame.Color(int(C), int(C), int(C))
-    result = A + C * (B - A)
-    if type(A) == pygame.Color:
-        result = pygame.Color(int(result.r), int(result.g), int(result.b))
+        result = CLerp(A, B, C)
+    else:
+        result = A + C * (B - A)
     return result
+
+def CLerp(A, B, C):
+    return pygame.Color(int(Lerp(A.r, B.r, C)),int(Lerp(A.g, B.g, C)), int(Lerp(A.b, B.b, C)))
 
 def EaseIn(x):
     return x*x*x

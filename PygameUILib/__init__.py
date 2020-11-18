@@ -111,15 +111,15 @@ class Button():
         #Initialize Animations
         self.ColorAnimationValue = AnimatableValue(pygame.Color("Red"))
         self.ColorAnimation = Animation(self.ColorAnimationValue, From=pygame.Color("Red"), To=pygame.Color("Blue"),
-                                        Duration=0.5, Ease=EaseTypes.NONE)
+                                        Duration=0.5, Ease=EaseTypes.EaseOut)
         self.ColorAnimation.Play()
         self.BorderColorAnimationValue = AnimatableValue(pygame.Color("Red"))
         self.BorderColorAnimation = Animation(self.BorderColorAnimationValue, From=pygame.Color("Red"), To=pygame.Color("Blue"),
-                                        Duration=0.5, Ease=EaseTypes.NONE)
+                                        Duration=0.5, Ease=EaseTypes.EaseOut)
         self.BorderColorAnimation.Play()
         self.FontColorAnimationValue = AnimatableValue(pygame.Color("Red"))
         self.FontColorAnimation = Animation(self.FontColorAnimationValue, From=pygame.Color("Red"), To=pygame.Color("Blue"),
-                                        Duration=0.5, Ease=EaseTypes.NONE)
+                                        Duration=0.5, Ease=EaseTypes.EaseOut)
         self.FontColorAnimation.Play()
 
         #Initialize Default values and read config file/string
@@ -217,6 +217,7 @@ class Button():
             self.ColorAnimation.From = self.color
             self.ColorAnimation.CurrentTime = 0
             self.ColorAnimation.PercentageComplete = 0
+            self.ColorAnimation.Play()
         self.ColorAnimation.To = To
 
     def PUIL_SetBorderAnimation(self, To):
@@ -224,6 +225,7 @@ class Button():
             self.BorderColorAnimation.From = self.BorderColorAnimationValue.value
             self.BorderColorAnimation.CurrentTime = 0
             self.BorderColorAnimation.PercentageComplete = 0
+            self.BorderColorAnimation.Play()
         self.BorderColorAnimation.To = To
 
     def PUIL_SetFontAnimation(self, To):
@@ -231,6 +233,7 @@ class Button():
             self.FontColorAnimation.From = self.FontColorAnimationValue.value
             self.FontColorAnimation.CurrentTime = 0
             self.FontColorAnimation.PercentageComplete = 0
+            self.FontColorAnimation.Play()
         self.FontColorAnimation.To = To
 
     def Draw(self, surface, fps = 60):
@@ -251,6 +254,8 @@ class Button():
                     self.PUIL_SetBorderAnimation(self.borderclickedcolor)
                     self.PUIL_SetFontAnimation(self.fontclickedcolor)
                     if hasattr(self, 'func') and not self.hidden:
+                        if hasattr(self, "args") and not self.args == None:
+                            self.func(self.args)
                         self.func()
                 else:
                     self.PUIL_SetAnimation(self.hovercolor)
@@ -286,8 +291,9 @@ class Button():
                             self.ColorAnimationValue.value, self.BorderColorAnimationValue.value, self.radius, self.bordersize)
         self.label.Draw(surface)
 
-    def SetFunction(self, func, *args):
+    def SetFunction(self, func, args = None):
         self.func = func
+        self.args = args
 
 class Label():
     def __init__(self, *args):

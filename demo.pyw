@@ -21,10 +21,10 @@ fps = 60
 fpsClock = pygame.time.Clock()
 
 print("Creating Screen")
-Fullscreen = True
+Fullscreen = False
 screen = pygame.display.set_mode(screensize, pygame.FULLSCREEN)
 if not Fullscreen:
-    screen = pygame.display.set_mode(screensize)
+    screen = pygame.display.set_mode(screensize, pygame.NOFRAME)
 
 btnConfig = """
 position: 400,400           // Position X,Y (Center)                    [btn.x, btn.y]
