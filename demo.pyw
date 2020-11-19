@@ -21,7 +21,7 @@ fps = 60
 fpsClock = pygame.time.Clock()
 
 print("Creating Screen")
-Fullscreen = False
+Fullscreen = True
 screen = pygame.display.set_mode(screensize, pygame.FULLSCREEN)
 if not Fullscreen:
     screen = pygame.display.set_mode(screensize, pygame.NOFRAME)
@@ -52,6 +52,13 @@ position: 250,475
 fontcolor: #A911BD
 hidden: False
 align: Center
+"""
+
+inputFieldConfig = """
+position: 250,550
+width: 300
+fontcolor: #A911BD
+hidden: False
 """
 
 sliderLabelConfig = """
@@ -179,6 +186,9 @@ btnAnimationTest.SetFont("Fonts/Roboto-Thin.ttf", 40)
 btnAnimationTest.SetFunction(QuitGame)
 btnAnimationTest.text = "Quit"
 uielems.append(btnAnimationTest)
+
+ifTest = InputField(inputFieldConfig)
+uielems.append(ifTest)
 
 # Game loop.
 while True:

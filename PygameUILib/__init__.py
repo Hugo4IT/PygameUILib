@@ -511,10 +511,11 @@ class InputField():
         self.placeholder = p
 
     def Draw(self, surface, fps = 60):
-        self.label.x = self.x-self.width/2
+        self.label.x = self.x
         self.label.y = self.y
         self.label.text = self.placeholder
         self.label.color = self.placeholdercolor
+        self.label.Draw(surface, fps)
 
 
 print("[PygameUILib] Done!")
