@@ -21,7 +21,7 @@ fps = 60
 fpsClock = pygame.time.Clock()
 
 print("Creating Screen")
-Fullscreen = True
+Fullscreen = False
 screen = pygame.display.set_mode(screensize, pygame.FULLSCREEN)
 if not Fullscreen:
     screen = pygame.display.set_mode(screensize, pygame.NOFRAME)
@@ -187,14 +187,18 @@ btnAnimationTest.SetFunction(QuitGame)
 btnAnimationTest.text = "Quit"
 uielems.append(btnAnimationTest)
 
+InputFields = []
 ifTest = InputField(inputFieldConfig)
 uielems.append(ifTest)
+InputFields.append(ifTest)
 
 # Game loop.
 while True:
     screen.fill(pygame.Color("#1C1C2B"))
 
     for event in pygame.event.get():
+        for ifs in InputFields:
+            ifs.UpdateEventHandler(event)
         if event.type == QUIT:
             pygame.quit()
             sys.exit()

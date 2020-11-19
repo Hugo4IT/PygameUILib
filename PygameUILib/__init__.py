@@ -461,7 +461,9 @@ class InputField():
 
         #Initialize Assistant UIElements
         self.label = Label()
-        self.label.align = 1
+        self.label.align = 0
+        self.text = ""
+        self.active = True
 
         #Initialize Default values and read config file/string
         self.defaultConfig = """
@@ -509,11 +511,26 @@ class InputField():
     def SetPlaceholder(self, p):
         self.placeholder = p
 
+    def UpdateEventHandler(self, event):
+        if event.type == pygame.KEYDOWN:
+            if self.active:
+                if event.key == pygame.K_RETURN:
+                    print(self.text)
+                    self.text = ''
+                elif event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.text += event.unicode
+
     def Draw(self, surface, fps = 60):
-        self.label.x = self.x
+        self.label.x = self.x-self.width/2+5
         self.label.y = self.y
-        self.label.text = self.placeholder
-        self.label.color = self.placeholdercolor
+        if not self.active:
+            self.label.text = self.placeholder
+            self.label.color = self.placeholdercolor
+        else:
+            self.label.text = self.text
+            self.label.color = self.maincolor
         self.label.Draw(surface, fps)
         draw_rounded_rect(surface, pygame.Rect(self.x-self.width/2, self.y+20, self.width, 6), self.maincolor, 2)
 
