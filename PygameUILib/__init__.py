@@ -86,8 +86,11 @@ def draw_bordered_rounded_rect(surface, rect, color, border_color, corner_radius
 
 loadedFonts = {}
 
+#Globals preventing multiple UIElements activated simultaniously
 global PUIL_CursorDragging
 PUIL_CursorDragging = False
+global PUIL_SubscribedIFS
+PUIL_SubscribedIFS = []
 
 def Distance(x1, x2, y1, y2):
     return math.hypot(x2 - x1, y2 - y1)
@@ -456,6 +459,9 @@ class Slider():
 
 class InputField():
     def __init__(self, config = None):
+        #Add to global PUIL_SubscribedIFS to prevent typing on multiple diffirent InputFields simultaniously
+        PUIL_SubscribedIFS.append(self)
+
         #Initialize Animations
 
 
@@ -463,7 +469,7 @@ class InputField():
         self.label = Label()
         self.label.align = 0
         self.text = ""
-        self.active = True
+        self.active = False
 
         #Initialize Default values and read config file/string
         self.defaultConfig = """
@@ -525,6 +531,11 @@ class InputField():
     def Draw(self, surface, fps = 60):
         self.label.x = self.x-self.width/2+5
         self.label.y = self.y
+        mpos = pygame.mouse.get_pos()
+        if mpos[0] > self.x-self.width/2 and mpos[0] < self.x+self.width/2 and mpos[1] > self.y-15 and \
+                                                                                mpos[1] < self.y+20:
+            if pygame.mouse.get_pressed(3)[0]:
+                self.active = True
         if not self.active:
             self.label.text = self.placeholder
             self.label.color = self.placeholdercolor

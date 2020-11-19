@@ -181,7 +181,8 @@ def QuitGame():
     sys.exit()
 
 btnAnimationTest = Button(btnConfig)
-btnAnimationTest.y = 600
+btnAnimationTest.y = 75
+btnAnimationTest.x = 1820
 btnAnimationTest.SetFont("Fonts/Roboto-Thin.ttf", 40)
 btnAnimationTest.SetFunction(QuitGame)
 btnAnimationTest.text = "Quit"
