@@ -489,7 +489,6 @@ class InputField():
                 v = value.split(":")[1].replace(" ", "").replace("\t", "")
                 if "//" in v :
                     v = v.split("//")[0]
-                print(str(k), str(v))
                 if k == "position":
                     self.x = int(v.split(",")[0])
                     self.y = int(v.split(",")[1])
@@ -516,6 +515,7 @@ class InputField():
         self.label.text = self.placeholder
         self.label.color = self.placeholdercolor
         self.label.Draw(surface, fps)
+        draw_rounded_rect(surface, pygame.Rect(self.x-self.width/2, self.y+20, self.width, 6), self.maincolor, 2)
 
 
 print("[PygameUILib] Done!")

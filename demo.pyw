@@ -57,7 +57,7 @@ align: Center
 inputFieldConfig = """
 position: 250,550
 width: 300
-fontcolor: #A911BD
+color: #A911BD
 hidden: False
 """
 
