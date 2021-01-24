@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: PygameUILib
+Version: 0.0.2
+Summary: An easy-to-use pygame User Interface Library
+Home-page: https://github.com/Hugo4IT/PygameUILib
+Author: Hugo van de Kuilen from Hugo4IT.com
+Author-email: hugo.vandekuilen1234567890@gmail.com
+License: UNKNOWN
+Description: # PygameUILib by Hugo4IT
+        ### WORK IN PROGRESS, PLEASE DONT USE YET
+        #### Please go to bottom of the page for progress info
+        A simple, fast GUI solution for Pygame
+        
+        For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
+        
+        ## Installation:
+        - #### Windows
+          - Open command prompt
+          - Enter `pip install PygameUILib`
+          - Done
+        - #### Windows (Super beginner)
+          - Copy this text: `pip install PygameUILib`
+          - Press `Windows Icon` + `R`
+          - Type `cmd`
+          - Hit `Enter â†µ`
+          - A black window should have popped up
+          - Right click on the black window
+          - Hit `Enter â†µ`
+          - Done
+        - #### Linux/MacOS:
+          - Open the app `Terminal` (Name may vary when using linux)
+          - Enter `pip install PygameUILib`
+          - Done
+        
+        ## How to use/Documentation
+        Take a look at the documentation and a beginner guide on my [Website](https://Hugo4IT.com/PygameUILib)
+        
+        For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
