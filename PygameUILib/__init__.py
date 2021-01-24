@@ -518,15 +518,17 @@ class InputField():
         self.placeholder = p
 
     def UpdateEventHandler(self, event):
+        t = ""
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:
-                    print(self.text)
+                    t = self.text
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
                     self.text += event.unicode
+        return t
 
     def Draw(self, surface, fps = 60):
         self.label.x = self.x-self.width/2+5
