@@ -4,6 +4,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - run: pip install twine
       - uses: casperdcl/deploy-pypi@v2
         with:
           password: ${{ secrets.PYPI_PASSWORD }}
