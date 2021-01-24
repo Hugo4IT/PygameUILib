@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="PygameUILib",
-    version="0.0.1",
+    version="0.0.2",
     author="Hugo van de Kuilen from Hugo4IT.com",
     author_email="hugo.vandekuilen1234567890@gmail.com",
     description="An easy-to-use pygame User Interface Library",
