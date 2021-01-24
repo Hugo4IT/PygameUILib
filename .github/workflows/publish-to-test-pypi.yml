@@ -6,7 +6,7 @@ jobs:
     steps:
       - run: pip install twine
       - run: echo $PWD
-      - run: echo */
+      - run: ls
       - uses: casperdcl/deploy-pypi@v2
         with:
           password: ${{ secrets.PYPI_PASSWORD }}
