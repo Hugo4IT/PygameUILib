@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: pip install twine
-        echo $PWD
-        OUTPUT=$(ls)
-        echo ${OUTPUT}
+      - run: echo $PWD
+      - run: OUTPUT=$(ls)
+      - run: echo ${OUTPUT}
       - uses: casperdcl/deploy-pypi@v2
         with:
           password: ${{ secrets.PYPI_PASSWORD }}
