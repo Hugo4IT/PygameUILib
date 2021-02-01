@@ -1,8 +1,0 @@
-README.md
-setup.py
-PygameAnimationLib/__init__.py
-PygameUILib/__init__.py
-PygameUILib_by_Hugo4IT.egg-info/PKG-INFO
-PygameUILib_by_Hugo4IT.egg-info/SOURCES.txt
-PygameUILib_by_Hugo4IT.egg-info/dependency_links.txt
-PygameUILib_by_Hugo4IT.egg-info/top_level.txt

@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-setup.py
-PygameAnimationLib/__init__.py
-PygameUILib/__init__.py
-PygameUILib.egg-info/PKG-INFO
-PygameUILib.egg-info/SOURCES.txt
-PygameUILib.egg-info/dependency_links.txt
-PygameUILib.egg-info/top_level.txt
