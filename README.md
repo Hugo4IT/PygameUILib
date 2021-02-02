@@ -8,11 +8,11 @@ I have done some speed tests with this css interpreter and these are the results
   #### Ryzen 5 3600x:
   ```
   Test 1 - Large CSS File:
-    Time: 0.4530787467956543
-    Memory usage after test: 12.81640625
+    Time (seconds): 0.4530792236328125
+    Memory usage after test (MegaBytes): 12.734375
   Test 2 - 100 Large CSS Files:
-    Time: 47.27634024620056
-    Memory usage after test:49.29296875
+    Time (seconds): 47.259774684906006
+    Memory usage after test (MegaBytes): 49.2890625
   ```
 And while these scores are definetly not perfect, it is at least decent and enough for any project of almost any size
     
