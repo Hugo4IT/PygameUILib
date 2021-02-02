@@ -1,0 +1,25 @@
+.defaultButton {
+  top: 400px;
+  left: 400px;                    /* Position from center */
+  width: 150px;
+  height: 100px;                  /* Size from center                         [btn.sx, btn.sy] */
+  background-color: #263238;    /* Color Hex/Name                           [btn.maincolor, current color = btn.color] */
+  border-radius: 30px;            /* Corner radius                            [btn.radius] */
+  border-style: solid;          /* Bordered rect                            [btn.bordered] */
+  border-width: 10px;             /* Border width                             [btn.bordersize] */
+  border-color: #1E282D;        /* Border color                             [btn.mainbordercolor, current border color = btn.bordercolor] */
+  color: #A911BD;               /* Font color (Textcolor)                   [btn.mainfontcolor, current color = btn.fontcolor] */
+  /*display: none;*/            /* Hide Button                              [btn.hidden] */
+}
+
+.defaultButton:hover {
+  color: #1C1C2B;               /* Font color on hover                      [btn.fonthovercolor] */
+  background-color: #A911BD;    /* Color on mouse hover                     [btn.hovercolor] */
+  background-color: #7C13A8;    /* Border color on hover                    [btn.borderhovercolor] */
+}
+
+.defaultButton:focus {
+  color: #1C1C2B;               /* Font color on click                      [btn.fontclickedcolor] */
+  background-color: #A892DF;    /* Border color on click                    [btn.borderclickedcolor] */
+  background-color: #A911BD;    /* Color on click                           [btn.clickedcolor] */
+}

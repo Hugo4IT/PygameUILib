@@ -1,0 +1,57 @@
+/**********************************************************************************************
+ *                                                                                            *
+ * Documentation can be viewed on Hugo4IT.com/PygameUILib                                     *
+ *                                                                                            *
+ * Credits:                                                                                   *
+ * Made fully by Hugo4IT and currently, no third-party or contributor was involved. although  *
+ * feel free to contribute to GitHub.com/Hugo4IT/PygameUILib                                  *
+ *                                                                                            *
+ * Some basic info:                                                                           *
+ *                                                                                            *
+ * These are the default style values for PygameUILib (GitHub.com/Hugo4IT/PygameUILib)        *
+ * Styling in PygameUILib works in exacly the same way as plain css, meaning that stylesheets *
+ * are interchangable between PygameUILib and HTML, that way you can demo and create your     *
+ * css files from your favorite editor with all code-completions and themes you could ever    *
+ * want. Ofcourse not all values will translate to PygameUILib instantly since there are      *
+ * a crap ton of css attributes that aren't yet implemented in PygameUILib yet. Stylesheets   *
+ * CAN be easily transfered from PygameUILib to HTML without issues since the syntax is the   *
+ * same. This software is licensed under the GNU General Public License v3.0                  *
+ *                                                                                            *
+ **********************************************************************************************/
+
+:root {
+  font-size: 16px;
+}
+
+.yeet{
+  color:#666;
+}
+.yeet:hover{
+  color:#5000;
+}
+
+button {
+  top: 400px;
+  left: 400px;
+  width: 150px;
+  height: 100px;
+  background-color: #263238;
+  border-radius: 30px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: #1E282D;
+  color: #A911BD;
+  display: block;
+}
+
+button:hover {
+  color: #1C1C2B;
+  background-color: #A911BD;
+  background-color: #7C13A8;
+}
+
+button:focus {
+  color: #1C1C2B;
+  background-color: #A892DF;
+  background-color: #A911BD;
+}
