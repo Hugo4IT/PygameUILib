@@ -8,11 +8,10 @@ I have done some speed tests with this css interpreter and these are the results
 - #### Test 1 **Description**: Some random css file from microsoft.com
   **Filesize**: `4209 lines 107kb`
   **Results**:
-    #### Ryzen 5 3600X
-    ```Done in 0.7 seconds```
-    #### Pentium N4200
-    ```Done in 1.2 seconds```
-
+    #### Ryzen 5 3600x `Done in 0.7 seconds`
+    #### Pentium N4200 `Done in 1.2 seconds`
+And while these scores are definetly not perfect, it is at least decent and enough for any project of almost any size
+    
 ## Installation:
 - #### Windows
   - Open command prompt
