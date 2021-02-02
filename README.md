@@ -9,9 +9,9 @@ I have done some speed tests with this css interpreter and these are the results
   **Filesize**: `4209 lines 107kb`
   **Results**:
     #### Ryzen 5 3600X
-      Done in 0.7 seconds
+    ```Done in 0.7 seconds```
     #### Pentium N4200
-      Done in 1.2 seconds
+    ```Done in 1.2 seconds```
 
 ## Installation:
 - #### Windows
