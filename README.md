@@ -4,15 +4,15 @@
 A simple, fast GUI solution for Pygame. [WORK-IN-PROGRESS] Please do not use yet, big changes are planned, so your code will probably not work in future versions. PygameUILib only has 1 dependency: pygame. Meaning that this library doesn't require any other library to function. This library also includes a CSS interpreter for styling, this interpreter has a big O notation of O(n) meaning that it is very fast and doesn't scale exponentially based on filesize!
 
 #### Speed
-I have done some speed tests with this css interpreter and these are the results
-  #### Test 1:
+I have done some speed tests with this css interpreter and these are the results, time is measured in seconds and all stylesheet results were stored in memory so the garbage collector didn't interfere. Large CSS File is a `4200 line 160kb` CSS file full of code
+  #### Ryzen 5 3600x:
   ```
-  Description: Some random css file from microsoft.com
-  Filesize: 4209 lines | 107kb
-  
-  Results:
-    Ryzen 5 3600x Done in 0.7 seconds
-    Pentium N4200 Done in 1.2 seconds
+  Test 1 - Large CSS File:
+    Time: 0.4530787467956543
+    Memory usage after test: 12.81640625
+  Test 2 - 100 Large CSS Files:
+    Time: 47.27634024620056
+    Memory usage after test:49.29296875
   ```
 And while these scores are definetly not perfect, it is at least decent and enough for any project of almost any size
     
