@@ -3,8 +3,6 @@
 #### Please go to bottom of the page for progress info
 A simple, fast GUI solution for Pygame
 
-For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
-
 ## Installation:
 - #### Windows
   - Open command prompt
@@ -26,5 +24,4 @@ For progress info or submissions of ideas/elements, click [Here](https://trello.
 
 ## How to use/Documentation
 Take a look at the documentation and a beginner guide on my [Website](https://Hugo4IT.com/PygameUILib)
-
-For progress info or submissions of ideas/elements, click [Here](https://trello.com/b/9dwC0kAZ/pygameuilib-pygameanimationlib)
+(Documentation currently work-in-progress, please wait until it releases)
