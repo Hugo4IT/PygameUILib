@@ -98,8 +98,7 @@ class Stylesheet:
                     self.classes.remove(y)
 
         if debugMode >= 1: print("[PUIL_DEBUG] Done parsing string")
-        if debugMode == 2: print("[PUIL_DEBUG] Result:")
-        print(self)
+        if debugMode == 2: print("[PUIL_DEBUG] Result:{0}".format(str(self)))
         return (self, classNames, classesData, parsestring)
 
     def parseFile(self, f):
@@ -112,5 +111,39 @@ defaultSheet = Stylesheet()
 defaultSheet.parseFile("./defaults.css")
 
 if __name__ == "__main__":
+    import sys
+    def flush():
+        sys.stdout.flush()
+    print("Starting speed&memory tests...")
+    flush()
+    import psutil, time
+    debugMode = 0
+    print("Starting test 1 - 1 Large CSS File")
+    flush()
+    test1timestart = time.time()
     ts = Stylesheet()
     ts.parseFile("./huge.css")
+    test1timeend = time.time()
+    # Memory Footprint Calculation
+    test1memory = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+    print("Test 1 done! Starting test 2 - 100 Large CSS Files")
+    flush()
+    test2timestart = time.time()
+    temparray = []
+    for x in range(100):
+        s = Stylesheet()
+        s.parseFile("./huge.css")
+        temparray.append(s)
+    test2timeend = time.time()
+    # Memory Footprint Calculation
+    test2memory = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+    print("All tests done! Results:\n{0}".format(
+        "Test 1 - Large CSS File:\n\tTime (seconds): "+
+        str(test1timeend-test1timestart)+
+        "\n\tMemory usage after test (MegaBytes): "+
+        str(test1memory)+
+        "\nTest 2 - 100 Large CSS Files:\n\tTime (seconds): "+
+        str(test2timeend-test2timestart)+
+        "\n\tMemory usage after test (MegaBytes): "+
+        str(test2memory)
+    ))
