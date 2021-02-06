@@ -1,5 +1,6 @@
 import re
 import os
+import json
 
 try:
     debugMode = 2 if os.environ["PUIL_DEBUG"] == "FULL" else 1
@@ -25,16 +26,12 @@ class StyleClass:
 
 class Stylesheet:
     def __init__(self, file = None):
-        self.classes = []
+        self.classes = {}
         if file != None:
             self.parseString(file)
 
     def __str__(self):
-        tc = ""
-        for x in self.classes:
-            tc += "\n"
-            tc += str(x)
-        return "Stylesheet with classes:\n{0}".format(tc)
+        return "\nStylesheet with classes:\n{0}".format(json.dumps(self.classes))
 
     def parseString(self, pstr):
         if debugMode == 2: print("[PUIL_DEBUG] Parsing String\n{0}".format(pstr))
@@ -61,89 +58,122 @@ class Stylesheet:
         for x in range(len(classNames)):
             tc = classNames[x]
             ta = classesData[x]
-            tclass = StyleClass("")
+            tclass = {}
             for y in ta.split(";"):
-                type = "default"
-                tclass.className = tc
-                if ":" in tc:
-                    type = tc.split(":")[1]
-                    tclass.className = tc.split(":")[0]
-                createNew = not type in tclass.attributes
                 z = y.split(":")
-                if type not in tclass.attributes:
-                    tclass.attributes[type] = {}
-                if len(z) == 2:
-                    tclass.attributes[type][str(z[0])] = str(z[1])
-                if createNew:
-                    self.classes.append(tclass)
-        if debugMode == 2: print("[PUIL_DEBUG] Current ungrouped classes:\n"+str(self))
-        if debugMode >= 1: print("[PUIL_DEBUG] Grouping classes")
-        namearray = []
-        for x in self.classes:
-            namearray.append(x.className)
-        for x in self.classes:
-            samenames = []
-            for y in self.classes:
-                if ":" in y.className:
-                    if y.className.split(":")[0] == x.className:
-                        samenames.append(y)
-                else:
-                    if y.className == x.className:
-                        samenames.append(y)
-            if len(samenames) >= 2:
-                firstclass = samenames[0]
-                samenames.pop(0)
-                for y in samenames:
-                    firstclass.attributes[list(y.attributes.keys())[0]] = y.attributes[list(y.attributes.keys())[0]]
-                    self.classes.remove(y)
+                if len(z) > 1:
+                    tclass[str(z[0])] = str(z[1])
+            self.classes[tc] = tclass
 
         if debugMode >= 1: print("[PUIL_DEBUG] Done parsing string")
         if debugMode == 2: print("[PUIL_DEBUG] Result:{0}".format(str(self)))
+
         return (self, classNames, classesData, parsestring)
 
     def parseFile(self, f):
         with open(f, "r", encoding="utf-8") as file:
             return self.parseString(file.read())
 
-debugMode = 2
+debugMode = 0
 if debugMode >= 1: print("[PUIL_DEBUG] Loading default classes")
 defaultSheet = Stylesheet()
 defaultSheet.parseFile("./defaults.css")
 
-if __name__ == "__main__":
+def speedtest():
     import sys
     def flush():
         sys.stdout.flush()
+
     print("Starting speed&memory tests...")
     flush()
     import psutil, time
     debugMode = 0
     print("Starting test 1 - 1 Large CSS File")
     flush()
+
+    test1memorystart = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
     test1timestart = time.time()
+
     ts = Stylesheet()
     ts.parseFile("./huge.css")
+
     test1timeend = time.time()
-    # Memory Footprint Calculation
-    test1memory = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+    test1memoryend = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+
     print("Test 1 done! Starting test 2 - 100 Large CSS Files")
     flush()
+
+    test2memorystart = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
     test2timestart = time.time()
+
     temparray = []
     for x in range(100):
         s = Stylesheet()
         s.parseFile("./huge.css")
         temparray.append(s)
+
     test2timeend = time.time()
-    # Memory Footprint Calculation
-    test2memory = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+    test2memoryend = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+
+    print("Test 2 done! Starting Test 3 - Defaults.css")
+    flush()
+
+    test3memorystart = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+    test3timestart = time.time()
+
+    ds = Stylesheet()
+    ds.parseFile("./defaults.css")
+
+    test3timeend = time.time()
+    test3memoryend = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+
+    print("Test 3 done! Starting Test 4 - Defaults.css 100 times")
+    flush()
+
+    test4memorystart = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+    test4timestart = time.time()
+
+    temparray2 = []
+    for x in range(100):
+        s = Stylesheet()
+        s.parseFile("./defaults.css")
+        temparray2.append(s)
+
+    test4timeend = time.time()
+    test4memoryend = (psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
+
+
     print("All tests done! Results:\n{0}".format(
-        "Test 1 - Large CSS File:\n\tTime (seconds): "+
-        str(test1timeend-test1timestart)+
-        "\n\tMemory usage after test (MegaBytes): "+
-        str(test1memory)+
-        "\nTest 2 - 100 Large CSS Files:\n\tTime (seconds): "+
-        str(test2timeend-test2timestart)+
-        "\n\tMemory usage after test (MegaBytes): "+
-        str(test2memory)
+        "Test 1 - Large CSS File:\n\tTime (seconds): " +
+        str(test1timeend - test1timestart) +
+        "\n\tMemory usage after test (MegaBytes): " +
+        str(test1memoryend - test1memorystart) +
+        "\nTest 2 - 100 Large CSS Files:\n\tTime (seconds): " +
+        str(test2timeend - test2timestart) +
+        "\n\tMemory usage after test (MegaBytes): " +
+        str(test2memoryend - test2memorystart) +
+        "\nTest 3 - Defaults.css:\n\tTime (seconds): " +
+        str(test3timeend - test3timestart) +
+        "\n\tMemory usage after test (MegaBytes): " +
+        str(test3memoryend - test3memorystart) +
+        "\nTest 4 - Defaults.css 100 times:\n\tTime (seconds): " +
+        str(test4timeend - test4timestart) +
+        "\n\tMemory usage after test (MegaBytes): " +
+        str(test4memoryend - test4memorystart)
     ))
+
+def debug():
+    global debugMode
+    debugMode = 2
+    ts = Stylesheet()
+    ts.parseFile("./defaults.css")
+    print(ts.classes)
+
+if __name__ == "__main__":
+    inp = input("Select what you want to do:\n  1: SpeedTest\n  2. Debug\n  3: exit\n> ")
+    if inp == "1":
+        speedtest()
+    elif inp == "2":
+        debug()
+    else:
+        pass
