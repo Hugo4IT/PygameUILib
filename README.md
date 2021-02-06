@@ -27,7 +27,7 @@ Test 3 - Defaults.css:
   Memory usage after test (MegaBytes): 0.0
 Test 4 - Defaults.css 100 times:
   Time (seconds): 0.019503355026245117
-    Memory usage after test (MegaBytes): 0.28515625
+  Memory usage after test (MegaBytes): 0.28515625
   ```
 
 #### Ryzen 5 3600x `Version 0.1.0`:
