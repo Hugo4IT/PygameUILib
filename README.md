@@ -61,5 +61,5 @@ And while these scores are definetly not perfect, it is at least decent and enou
   - Done
 
 ## How to use/Documentation
-Take a look at the documentation and a beginner guide on my [Website](https://Hugo4IT.com/PygameUILib)
-(Documentation currently work-in-progress, please wait until it releases)
+Take a look at the documentation and a beginner guide on my [Website](http://docs.hugo4it.com/docs/pygameuilib/getting-started/)
+(Documentation currently work-in-progress, please wait until it releases. PygameAnimationLib documentation can also be found there)
